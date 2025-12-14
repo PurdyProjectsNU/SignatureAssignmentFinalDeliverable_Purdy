@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Book a Tour</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style5.css">
+<style>
+.error {
+    color: red;
+    display: none;
+    font-size: 0.9em;
+}
+</style>
+</head>
+<body>
+<h1>Book a Tour</h1>
+<h3>Sign in or Create an Account to book a tour now!</h3>
+<p>Please reference the service you are requesting by listing the tour name and date in the form below</p><br>
+  <nav>
+		<div class="center">
+			<ul>
+				<li><a href="index.html">Home</a></li>
+				<li><a href="Hiking_Trails/Menu.html">Hiking Trails</a></li>
+				<li><a href="Gallery/gallery.html">See Recent Tours</a></li>
+				<li><a href="about.html">About us</a></li>
+				<li><a href="contact.html">Book a Tour!</a></li>
+			</ul>
+		</div>	
+	</nav> <br>
+    <table border="6">
+        <tr>
+            <th>Tour Name</th>
+            <th>Date</th>
+            <th>Price</th>
+        </tr>
+        <tr>
+            <td>The Mountain</td>
+            <td>June 5, 2026</td>
+            <td>$250</td>
+        </tr>
+        <tr>
+            <td>Hundred Acre Wood</td>
+            <td>July 12, 2026</td>
+            <td>$180</td>
+        </tr>
+        <tr>
+            <td>The Wetlands</td>
+            <td>August 9, 2026</td>
+            <td>$220</td>
+        </tr>
+        <tr>
+            <td>The Cliffside</td>
+            <td>September 14, 2026</td>
+            <td>$150</td>
+        </tr>
+    </table>
+<form action="/submit-form" method="POST" onsubmit="return validateForm()" novalidate>
+<h1>Book a Tour Form</h1>
+<h3>Create an Account</h3>
+        <label for="user">Username</label>
+        <input type="text" id="user" name="user" required>
+		<br>
+		<label for="email">Email</label>
+		<input type="email" id="email" name="email" required>
+		<span id="emailpatternerror" class="error"></span>
+		<br>	
+		<label for="password">Password</label>
+		<input type="password" id="password" name="password" required>
+		<span id="passworderror" class="error"></span>
+		<br>
+		<label for="confirmpassword">Confirm Password</label>
+        <input type="password" id="confirmpassword" name="confirmpassword" required>
+		<span id="confirmpassworderror" class="error"></span>
+		<br>
+<h3>Profile Information</h3>		
+		<label for="firstname">First Name</label>
+		<input type="text" id="firstname" name="firstname" required>
+		<br>
+		<label for="lastname">Last Name</label>
+		<input type="text" id="lastname" name="lastname" required>
+		<br>
+		<label for="city">City</label>
+		<input type="text" id="city" name="city" required>
+		<br>
+		<label for="zipcode">Zip Code</label>
+		<input type="text" id="zipcode" name="zipcode" required maxlength="5">
+		<span id="zipcodeerror" class="error"></span>
+		<br>
+<h3>Which tour are you interested in?</h3>
+            <label for="mountain">
+                <input type="radio" id="mountain" name="tour-name" value="The Mountain" required> The Mountain
+				</label>
+            <label for="wood">
+                <input type="radio" id="wood" name="tour-name" value="Hundred Acre Wood" required> Hundred Acre Wood
+				</label>
+            <label for="wetlands">
+                <input type="radio" id="wetlands" name="tour-name" value="The Wetlands" required> The Wetlands
+				</label>
+            <label for="cliffside">
+                <input type="radio" id="cliffside" name="tour-name" value="The Cliffside" required> The Cliffside
+            </label><br>
+<h3>Do you have any hiking/trail exploration experience?</h3>
+		<legend>Select</legend>
+        <select id="answer" name="Answer" size="3">
+            <option value="tons">Tons!</option>
+            <option value="some">Some</option>
+			<option value="little">Minimal</option>
+            <option value="none">None</option>
+        </select><br><br>
+<h3>Please provide any other information about your tour.</h3>
+        <legend>Do you have any special accomidation needs that we may be able to provide?</legend>
+        <textarea id="response" name="response" maxlength="250" rows="10" cols="90"></textarea>
+		<br><br>
+	  <input type="submit" value="Submit">
+	  <input type="reset" value="Reset">
+		</form>
+<script>
+        function validateForm() {
+			let hasError = false;
+            let firstname = document.getElementById("firstname").value.trim();
+            let lastname = document.getElementById("lastname").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let zipcode = document.getElementById("zipcode").value.trim();
+            let city = document.getElementById("city").value.trim();
+            let password = document.getElementById("password").value;
+            let confirmpassword = document.getElementById("confirmpassword").value;
+        
+		document.getElementById("firstname").value = firstname.charAt(0).toUpperCase() +firstname.slice(1);
+		document.getElementById("lastname").value = lastname.charAt(0).toUpperCase() + lastname.slice(1);
+		document.getElementById("city").value = city.charAt(0).toUpperCase() + city.slice(1);
+		
+		document.getElementById("emailpatternerror").textContent = "";
+		document.getElementById("emailpatternerror").style.display = "none";
+		document.getElementById("zipcodeerror").textContent = "";
+		document.getElementById("zipcodeerror").style.display = "none";
+		document.getElementById("passworderror").textContent = "";
+		document.getElementById("passworderror").style.display = "none";
+		document.getElementById("confirmpassworderror").textContent = "";
+		document.getElementById("confirmpassworderror").style.display = "none";
+	
+		let emailpattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!emailpattern.test(email)) {
+				document.getElementById("emailpatternerror").textContent = "Error! Please enter a valid email address.";
+				document.getElementById("emailpatternerror").style.display = "block";
+				hasError = true;
+            }
+            if (zipcode.length !== 5 || isNaN(zipcode)) {
+				document.getElementById("zipcodeerror").textContent = "Super Mega Ultra Critical Error! Zip code must be 5 digits.";
+				document.getElementById("zipcodeerror").style.display = "block";
+				hasError = true;
+            }
+            if (password.length < 8) {
+                document.getElementById("passworderror").textContent = "Critical Error! Password must be at least 8 characters long.";
+				document.getElementById("passworderror").style.display = "block";
+				hasError = true;
+            }
+            if (password !== confirmpassword) {
+				document.getElementById("confirmpassworderror").textContent = "Ultra Critical Error! Passwords must match.";
+				document.getElementById("confirmpassworderror").style.display = "block";
+				hasError = true;
+            }
+			return !hasError;
+			}
+    </script>
+<footer>
+<p>Questions Comments or Concerns? Talk to us!</p>
+<a href="mailto:purdy.de@northeastern.edu">Send Email</a><br>
+<p>Or take some time to read about us on our support page.</p>
+<a href="about.html">About us</a></li>
+</footer>
+</body>
+</html>
